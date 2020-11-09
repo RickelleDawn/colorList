@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "webpack"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
