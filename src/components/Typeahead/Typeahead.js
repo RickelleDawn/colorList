@@ -25,6 +25,9 @@ function Typeahead(props) {
     // used to create interactive styling 
     const [inputName, setinputName] = useState("inputBoxClose")
 
+    const [backgroundColor, setBackgroundColor] = useState("none")
+
+
 
 
 
@@ -40,6 +43,7 @@ function Typeahead(props) {
         // checks that updated search term is still longer than 1 character (wasn't just white space) 
         if (newTerm.length >= 1 && listOpen) {
             setinputName("inputBoxOpen")
+            
 
             // filter color list with updated search term (whitespace ignored/lowercase) to find matching items 
             const results = list.filter((color) =>
@@ -49,6 +53,7 @@ function Typeahead(props) {
             // update search result list as long as there is 1 or more matching term
             if (results.length >= 1) {
                 setSearchResult(results);
+
             }
 
             // ensures that if the result list is empty, the list display will not appear open
@@ -58,9 +63,6 @@ function Typeahead(props) {
                 setinputName("inputBoxClose")
             }
 
-
-
-
         }
 
 
@@ -69,6 +71,8 @@ function Typeahead(props) {
             setSearchResult([])
             setListOpen(false)
             setinputName("inputBoxClose")
+            // setBackgroundColor('none');
+
         }
 
     }, [searchTerm]);
@@ -78,12 +82,12 @@ function Typeahead(props) {
     return (
 
         // clicking anywhere will close list 
-        <div className="wrapper" onClick={() => {
+        <div className="wrapper" style={{background: backgroundColor, height: '100vh', width: '100%'}} onClick={() => {
             setListOpen(false)
             setinputName("inputBoxClose")
         }}>
 
-            <div className="container">
+            <div className="container" >
 
                 {/* by using a hook to control name of input box, I have more control over styling */}
                 {/* using an on change event, the search term is constantly updating and being used to filter color list*/}
@@ -93,7 +97,7 @@ function Typeahead(props) {
                     setListOpen(true)
 
                     // on key down event closes list if escape key (keycode 27) is pressed 
-                }} placeholder="begin typing.." onKeyDown={(evt) => {
+                }} placeholder="begin typing.." style={{background: 'white'}} onKeyDown={(evt) => {
                     if (evt.keyCode === 27) {
                         setListOpen(false)
                         setinputName("inputBoxClose")
@@ -112,6 +116,8 @@ function Typeahead(props) {
                         <div className="listItem"><p onClick={() => {
                             setListOpen(false)
                             setSearchTerm(color)
+                            setBackgroundColor(color)
+
                             onAction()
 
                             // on key down event closes list, populates the rest of the focused term 
